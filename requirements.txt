@@ -1,0 +1,15 @@
+Flask>=3.0
+Flask-SQLAlchemy>=3.1
+Flask-Marshmallow>=1.2
+marshmallow-sqlalchemy>=1.0
+flasgger>=0.9.7
+
+# Production server (Render runs the app through this instead of app.run())
+gunicorn>=22.0
+
+# Postgres driver, used by ProductionConfig when DATABASE_URL points at the
+# Postgres database hosted on Render.
+psycopg2-binary>=2.9
+
+# Uncomment if you switch the DATABASE_URL to MySQL instead of SQLite:
+# mysql-connector-python>=8.3
