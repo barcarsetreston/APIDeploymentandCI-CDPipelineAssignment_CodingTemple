@@ -32,10 +32,23 @@ class TestingConfig(Config):
     TESTING = True
 
 
+def _normalize_database_url(url):
+    """Rewrite a plain postgres:// or postgresql:// URL (the format Render's
+    "External Database URL" gives you) to explicitly use the pg8000 driver.
+    """
+    if not url:
+        return url
+    if url.startswith("postgres://"):
+        return url.replace("postgres://", "postgresql+pg8000://", 1)
+    if url.startswith("postgresql://"):
+        return url.replace("postgresql://", "postgresql+pg8000://", 1)
+    return url
+
+
 class ProductionConfig(Config):
     """Production configuration. Point DATABASE_URL at a real server."""
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = _normalize_database_url(os.environ.get("DATABASE_URL"))
     DEBUG = False
 
 

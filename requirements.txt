@@ -8,8 +8,11 @@ flasgger>=0.9.7
 gunicorn>=22.0
 
 # Postgres driver, used by ProductionConfig when DATABASE_URL points at the
-# Postgres database hosted on Render.
-psycopg2-binary>=2.9
+# Postgres database hosted on Render. This is a pure-Python driver (no
+# compiled C extension), which sidesteps a Render build quirk where the
+# compiled psycopg2-binary wheel installs fine during build but goes
+# missing in the deployed runtime container.
+pg8000>=1.30
 
 # Uncomment if you switch the DATABASE_URL to MySQL instead of SQLite:
 # mysql-connector-python>=8.3
